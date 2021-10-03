@@ -39,12 +39,12 @@ cd ~/workspace
 git clone https://github.com/kIshizaki-sci/philab_root.git -t v0.01-beta your_root_project
 cd your_root_project
 ```
-3. docker-composeでコンテナ(Dockerによって作られる仮想環境)を立ち上げる．
+3. docker-composeでコンテナ(Dockerによって作られる仮想環境)を立ち上げる．ここではwebから大量のデータのダウンロードとソフトウェアのコンパイルが実施されるため時間と通信量に注意してください．
 ```bash
+docker build ./base/ --progress=plain -t philab-root:20211002
 docker-compose up
 ```
-この際に13 GBのdocker imageをダウンロードします．手元の計算機の容量と通信量に注意してください．
-4. Google Chromeなどのwebブラウザからコンテナ中のJupyter Labにアクセス．アドレスバーに[http://localhost:8890](http://localhost:8890)を入力.
+4. Google Chromeなどのwebブラウザからコンテナ中のJupyter Labにアクセス．アドレスバーに[http://localhost:8888](http://localhost:8888)を入力.
 5. readme.ipynbを開く．
 6. 終了させる際はPowerShellにて"Ctrl + C"でJupyter Labを終了させる．このとき，コンテナ内のJupyter Labにおいて"output", "working" の外に出来たファイルやディレクトリはコンテナを閉じると同時に消去されます．
 
@@ -70,6 +70,7 @@ Apple Silicon (Arm64)搭載のMac, AMD製CPU搭載の計算機での動作テス
   - メモリ : 32 GB
 
 ## 更新履歴
+* 2021 10/04 : v0.3
 * 2021 09/26 : v0.2
 * 2021 09/17 : β版リリース．
 

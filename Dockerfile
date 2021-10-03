@@ -1,5 +1,5 @@
 
-ARG BASE_CONTAINER=ishizakiss/philab-root:20210925
+ARG BASE_CONTAINER=philab-root:20211002
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Kohei ISHIZAKI <ishizaki_at_phi.phys.nagoya-u_dot_ac_dot_jp>"
@@ -84,3 +84,5 @@ RUN git clone https://github.com/executablebooks/jupyterlab-myst.git .jupyterlab
 USER root
 RUN jupyter notebook --generate-config;\
     jupyter lab build;
+
+WORKDIR /home/$YOUR_NAME/working

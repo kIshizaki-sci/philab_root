@@ -6,8 +6,8 @@ https://hub.docker.com/repository/docker/ishizakiss/my_dev_env/general
 
 ## build方法
 ```bash
-docker build ./base/ --progress=plain -t ishizakiss/philab-root:20210925 > .build_log/base_amd64.txt
-docker build . --progress=plain > .build_log/amd64.txt
+docker build ./base/ --progress=plain -t philab-root:20211002 > .build_log/base_build.txt
+docker build . --progress=plain > .build_log/build.txt
 ```
 
 ## コンテナ操作の基本

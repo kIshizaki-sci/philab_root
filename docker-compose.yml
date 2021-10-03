@@ -1,6 +1,7 @@
 version: '3'
 services:
   jupyterlab:
+    container_name: philab_root_container
     build:
       context: .
       dockerfile: "Dockerfile"
@@ -11,14 +12,10 @@ services:
       - ./output:/home/philab_member/output
       - ./html:/home/philab_member/html
     ports:
-      - "8890:8888"
+      #your host port : container port
+      - "8888:8888"
       - "6006:6006"
     environment:
       TZ: Asia/Tokyo
     command:
-      jupyter lab
-          --ip=0.0.0.0
-          --allow-root
-          --no-browser
-          --NotebookApp.notebook_dir='/home/philab_member/working'
-          --NotebookApp.token=''
+      /bin/bash -c "jupyter lab --ip=0.0.0.0 --allow-root --no-browser --NotebookApp.notebook_dir='/home/philab_member/working' --NotebookApp.token=''"

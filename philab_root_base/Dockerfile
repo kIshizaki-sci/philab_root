@@ -1,5 +1,5 @@
 
-ARG BASE_CONTAINER=ubuntu:hirsute-20210825
+ARG BASE_CONTAINER=ubuntu:hirsute-20210917
 
 FROM $BASE_CONTAINER
 
@@ -58,10 +58,10 @@ RUN apt install -yq --no-install-recommends \
     llvm \
     llvm-12-dev;
 
-RUN apt install -yq --no-install-recommends \
-    texlive-xetex \
-    texlive-fonts-recommended \
-    texlive-plain-generic;
+#RUN apt install -yq --no-install-recommends \
+#    texlive-xetex \
+#    texlive-fonts-recommended \
+#    texlive-plain-generic;
 
 ## Install ROOT prerequired
 RUN apt install -yq --no-install-recommends \
