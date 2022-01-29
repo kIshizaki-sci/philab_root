@@ -1,5 +1,9 @@
 # Docker & Jupyter Labを用いたROOT解析環境
 
+<div align="center">
+  <img src="./logo.png">
+</div>
+
 たった2行のコマンドでシステムから隔離された仮想コンピュータ上で使用できるROOT解析環境を立ち上げることができます．
 この解析環境にはROOTの初歩的なチュートリアルが付いているので，学習&研究にご使用ください．
 
@@ -41,7 +45,7 @@ cd your_root_project
 ```
 3. docker-composeでコンテナ(Dockerによって作られる仮想環境)を立ち上げる．ここではwebから大量のデータのダウンロードとソフトウェアのコンパイルが実施されるため時間と通信量に注意してください．
 ```bash
-docker build ./base/ --progress=plain -t philab-root:20211002
+docker build ./philab_root_base/ --progress=plain -t philab-root:20211002
 docker-compose up
 ```
 4. Google Chromeなどのwebブラウザからコンテナ中のJupyter Labにアクセス．アドレスバーに[http://localhost:8888](http://localhost:8888)を入力.
@@ -58,14 +62,23 @@ Dockerの細かい使い方は割愛します．ググってください．と�
 * コンテナの停止: `docker-compose stop` 
 * コンテナの再スタート: `docker-compose start` 
 * コンテナの削除: `docker-compose down` 
+* bashの開き方
+```
+docker build -t vnctest .
+docker run --name vnctest1 -p 6080:80 -it vnctest /bin/bash
+```
+Password:
+Verify:
+Would you like to enter a view-only password (y/n)? n
+
 
 また使っていないDockerオブジェクトを削除したいときは[ここ](https://docs.docker.jp/config/pruning.html)なんかを参照してください．
 
 ## テスト環境
 Apple Silicon (Arm64)搭載のMac, AMD製CPU搭載の計算機での動作テストは行っていません．
 
-* Windows 10 Pro (21H1)
-  - Docker Desktop on Windows 3.5.2 (on WSL2)
+* Windows 11 Pro (21H2)
+  - Docker Desktop on Windows 4.3.2 (on WSL2)
   - CPU : intel i5-8500
   - メモリ : 32 GB
 
@@ -76,6 +89,11 @@ Apple Silicon (Arm64)搭載のMac, AMD製CPU搭載の計算機での動作テス
 
 ## Resources
 https://github.com/docker/buildx/issues/495  
+https://kamino.hatenablog.com/entry/docker_vnc 
+https://qiita.com/Esfahan/items/52141a2ad741933d7d4c 
+https://github.com/queeno/docker-ubuntu-desktop 
+https://docs.microsoft.com/ja-jp/azure/virtual-machines/linux/use-remote-desktop 
+https://code.visualstudio.com/docs/setup/linux 
 
 ## License
 [MIT License](./LICENSE)

@@ -1,5 +1,5 @@
 
-ARG BASE_CONTAINER=philab-root:20211002
+ARG BASE_CONTAINER=philab-root-base:20220128
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Kohei ISHIZAKI <ishizaki_at_phi.phys.nagoya-u_dot_ac_dot_jp>"
@@ -30,17 +30,54 @@ RUN useradd --create-home -u $YOUR_UID -s /bin/bash ${YOUR_NAME}; \
     adduser ${YOUR_NAME} sudo;
 USER $YOUR_NAME
 RUN export PATH=$HOME/.local/bin:$PATH
-ENV PATH $PATH:/home/$YOUR_NAME/.local/bin
+ENV PATH=$PATH:/home/$YOUR_NAME/.local/bin \
+    SHELL=/bin/bash
+
+###
+### アップグレード
+###
+USER root
+RUN apt update && apt upgrade -y --no-install-recommends;
+
 
 ###
 ### 日本語化
 ###
 USER root
-RUN apt update && apt install -yq --no-install-recommends \
+RUN apt install -yq --no-install-recommends \
     language-pack-ja-base \
     language-pack-ja;\
     echo 'LANG=ja_JP.UTF-8' >> /etc/profile;
 ENV LANG=ja_JP.UTF-8
+
+###
+### VNC環境インストール
+###
+USER root
+RUN apt install -yq --no-install-recommends \
+    ubuntu-desktop \
+    lxde \
+    gnome-panel \
+    gnome-settings-daemon \
+    metacity \
+    nautilus \
+    gedit \
+    gnome-terminal \
+    xvfb \
+    xfce4 \
+    tigervnc-standalone-server \
+    tigervnc-common \
+    novnc \
+    websockify \
+    firefox;
+RUN systemctl set-default graphical.target;
+
+USER $YOUR_NAME
+COPY set_vncpasswd.sh set_vncpasswd.sh
+RUN . set_vncpasswd.sh;
+USER root
+RUN rm set_vncpasswd.sh;
+
 
 ###
 ### ROOT setting

@@ -1,7 +1,7 @@
 version: '3'
 services:
   jupyterlab:
-    container_name: philab_root_container
+    container_name: philab_jupyter
     build:
       context: .
       dockerfile: "Dockerfile"
@@ -19,3 +19,24 @@ services:
       TZ: Asia/Tokyo
     command:
       /bin/bash -c "jupyter lab --ip=0.0.0.0 --allow-root --no-browser --NotebookApp.notebook_dir='/home/philab_member/working' --NotebookApp.token=''"
+
+  novnc:
+    container_name: philab_nonvc
+    tty: true
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    user: philab_member
+    volumes:
+      - ./working:/home/philab_member/working
+      - ./input:/home/philab_member/input:ro
+      - ./output:/home/philab_member/output
+      - ./html:/home/philab_member/html
+    ports:
+      #your host port : container port
+      - "8888:8888"
+      - "6080:6080"
+    environment:
+      TZ: Asia/Tokyo
+    command:
+      /bin/bash -c ". /usr/local/root/bin/thisroot.sh && vncserver :1 -geometry 1200x800 -depth 24 -xstartup /usr/bin/startxfce4 && websockify -D --web=/usr/share/novnc/ 6080 localhost:5901 && /bin/bash"

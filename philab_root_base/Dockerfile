@@ -1,10 +1,9 @@
 
-ARG BASE_CONTAINER=ubuntu:hirsute-20210917
+ARG BASE_CONTAINER=ubuntu:focal-20220105
 
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Kohei ISHIZAKI <ishizaki_at_phi.phys.nagoya-u_dot_ac_dot_jp>"
-
 
 #########################################################
 #########################################################
@@ -16,7 +15,8 @@ ARG cern_root_version="v6-24-06"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
+    SHELL=/bin/bash
 
 USER root
 RUN dpkgArch="$(dpkg --print-architecture)"; \
@@ -56,12 +56,12 @@ RUN apt install -yq --no-install-recommends \
     nano-tiny \
     python3-pip \
     llvm \
-    llvm-12-dev;
+    llvm-12-dev \
+    poppler-utils \
+    poppler-data;
 
-#RUN apt install -yq --no-install-recommends \
-#    texlive-xetex \
-#    texlive-fonts-recommended \
-#    texlive-plain-generic;
+RUN apt install -yq --no-install-recommends \
+    texlive-full;
 
 ## Install ROOT prerequired
 RUN apt install -yq --no-install-recommends \
@@ -88,6 +88,10 @@ RUN apt install -yq --no-install-recommends \
     libhdf5-dev \
     libgsl0-dev;
 
+USER root
+RUN apt clean; \
+    rm -rf /var/lib/apt/lists/*;
+
 ###
 ###  Install Python packages
 ###
@@ -108,8 +112,8 @@ RUN pip3 install -I pip; \
 USER root
 ARG root_prefix="/usr/local/root"
 RUN cd /tmp && mkdir .root && cd .root; \
-    git clone --progress https://github.com/root-project/root.git -b ${cern_root_version};
-RUN cd /tmp/.root; \
+    git clone --progress https://github.com/root-project/root.git -b ${cern_root_version} --depth 1; \
+    cd /tmp/.root; \
     mkdir root_build ${root_prefix} && cd root_build; \
     dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
@@ -118,7 +122,8 @@ RUN cd /tmp/.root; \
         *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
     esac; \
     export PATH=${ROOTSYS}/bin:$PATH ; \
-    echo "source ${root_prefix}/bin/thisroot.sh" >> ~/.bashrc;
+    echo "source ${root_prefix}/bin/thisroot.sh" >> ~/.bashrc; \
+    rm -rd /tmp/.root ;
 
 ENV ROOTSYS=${root_prefix} \
     PATH=$ROOTSYS/bin:$PATH \
@@ -126,12 +131,7 @@ ENV ROOTSYS=${root_prefix} \
     CLING_STANDARD_PCH=none
 RUN cp -r ${root_prefix}/etc/notebook/kernels/root /usr/local/share/jupyter/kernels; \
     jupyter notebook --generate-config; \
-    rm -rd /tmp/.root; \
     echo ${root_prefix}/lib >> /etc/ld.so.conf; \
     ldconfig;
 
 EXPOSE 8888 6006
-
-USER root
-RUN apt clean; \
-    rm -rf /var/lib/apt/lists/*;

@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CERN ROOT C++ on JupyterLab 使い方 &#8212; DockerとJupyterLabで学ぶROOTの初歩</title>
+    
+  <link href="../../../../../../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../../../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../../../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../../../../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../../../../../../../" src="../../../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../../../_static/doctools.js"></script>
+    <script src="../../../../../../../../_static/togglebutton.js"></script>
+    <script src="../../../../../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../../../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../../../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../../../../../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../../../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../../../../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">DockerとJupyterLabで学ぶROOTの初歩</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../../../../intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../../../%E3%80%901%E3%80%91JupyterLab%E3%81%A8ROOT%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9.html">
+   CERN ROOT C++ on JupyterLab 使い方
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../../../../../../_sources/contents/book/_build/jupyter_execute/contents/book/_build/jupyter_execute/【1】JupyterLabとROOTの使い方.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kIshizaki-sci/philab_root"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/kIshizaki-sci/philab_root/issues/new?title=Issue%20on%20page%20%2Fcontents/book/_build/jupyter_execute/contents/book/_build/jupyter_execute/【1】JupyterLabとROOTの使い方.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/kIshizaki-sci/philab_root/main?urlpath=tree/html/contents/book/_build/jupyter_execute/contents/book/_build/jupyter_execute/【1】JupyterLabとROOTの使い方.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../../../../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jupyterlab">
+   JupyterLabとは
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cern-root">
+   CERN ROOTとは
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#docker-philab-root">
+   このDockerイメージ”philab-root”について
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     このイメージのセットアップ
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   JupyterLabの操作
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   練習
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     素数の計算
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#root">
+     ROOTを使ったグラフ描画
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   練習課題
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="cern-root-c-on-jupyterlab">
+<h1>CERN ROOT C++ on JupyterLab 使い方<a class="headerlink" href="#cern-root-c-on-jupyterlab" title="Permalink to this headline">¶</a></h1>
+<p>最終編集:石崎貢平 (2021/10/04)</p>
+<div class="section" id="jupyterlab">
+<h2>JupyterLabとは<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h2>
+<p>ブラウザ上でインタラクティブにデータ解析を行うことが出来るオープンソースのソフトウェア．Pythonでの利用が最も多いがC++やRust, Go, Juliaなどの言語でも利用できる．ROOTについてもJupyterLabで利用するためコード(kernel)が提供されているためJupyterLab上でROOTのコードを実行できる．<br />
+コマンドライン上でのROOTと比較した際のメリットは</p>
+<ul class="simple">
+<li><p>Markdownやテキスト形式でメモを残せる．また図を載せることもできる．</p></li>
+<li><p>実行したコード内容が全て保存できる．</p></li>
+</ul>
+<p>が上げられる．</p>
+<p>機械学習などの方面で非常に良く利用されており，クラウドサービスでも利用されている．そのような背景があるためProject Jupyter自体がGoogleやMicrosoftといった巨大テック企業から経済的な支援を受けており，今後もしばらくは開発の継続が期待できるため学んでおいて損はないし習得も容易である．</p>
+</div>
+<div class="section" id="cern-root">
+<h2>CERN ROOTとは<a class="headerlink" href="#cern-root" title="Permalink to this headline">¶</a></h2>
+<p>CERNのグループが開発している素粒子原子核物理に特化したデータ解析ソフトウェア．
+宇宙物理方面でも使われているらしい．主にC++用のライブラリとして提供されており，ROOTを使用したデータ解析にはC++の理解が重要である．
+C++は習得の容易な言語ではない．ifやforを使った簡単なコード，例えばフィボナッチ数列を計算する，などは出来るが構造体，ポインタ，オブジェクト指向の理解が不十分だという学生は多い．C++はPythonやRuby, C++に近い言語ではRust，など現代的な言語が必ず持っているエコシステムを持っていないため外部ライブラリの利用の仕方が分からないという学生も沢山見てきた．私自身もC++を十二分に使いこなせるわけではない．はっきり言ってC++なんてなるべく使いたくない．</p>
+<p>PythonでもROOT用の解析プログラムを書くことは出来るが，ライブラリ(モジュール)の説明は少なく，まともに使用するにはCERNのAPIドキュメントを理解するためにC++のオブジェクト指向の基礎的な概念(クラス，インスタンス，コンストラクタ，カプセル化，継承などなど)の理解が必要と言っても良い．</p>
+<p>また”ROOT”という単語はUnixにおける管理者権限をもつユーザの”root”と被っているため，検索するときや検索に引っかかるようにドキュメントを作る際は”CERN ROOT”と書くようにしている．</p>
+</div>
+<div class="section" id="docker-philab-root">
+<h2>このDockerイメージ”philab-root”について<a class="headerlink" href="#docker-philab-root" title="Permalink to this headline">¶</a></h2>
+<p>コンピュータ上に仮想コンピュータを作ることを仮想化という．たとえばMac OS上でWindowsやLinuxを動かしたり，Windows上でLinuxを動かしたりできる．Dockerはコンテナ型仮想化を行うソフトウェアでDocker社によって開発されている．2021年10月時点で非商用および小規模のビジネスに限って無料で利用できる．コンテナ型仮想化はハイパーバーザー型の仮想化と比較して，本格的な仮想化ではないが，軽量で他のコンピュータでも仮想化したコンピュータを簡単に展開できるという利点がある．コンテナ型仮想化はすでにソフトウェアのテストのみならずアプリ開発やソフトウェアの講習会，またクラウドサービスの提供などにも組み込まれており，Dockerはそのデファクトスタンダードだと言える．</p>
+<p>このDockerイメージは<a class="reference external" href="https://github.com/kIshizaki-sci/philab_root">GitHub上のレポジトリ</a>の中にある<code class="docutils literal notranslate"><span class="pre">philab_root_base/Dockerfile</span></code>と<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>に書かれている設計図を元にビルドされている．逆にこの設計図を読めばどのようなセットアップでこの仮想化環境が作られたのかが分かる．Dockerイメージを元に立ち上げられた仮想化環境を<code class="docutils literal notranslate"><span class="pre">コンテナ</span></code>とよび，Dockerコンテナを動かしているコンピュータのことを<code class="docutils literal notranslate"><span class="pre">ホストマシン</span></code>とよぶ．</p>
+<p>このDockerイメージ<code class="docutils literal notranslate"><span class="pre">philab-root</span></code>は名古屋大学 理学研究科 素粒子宇宙物理学専攻 素粒子物性研究室(Φ研)での利用を想定して作られた．ビルド後のDockerイメージの中には様々なライセンス規約を持つソフトウェアのバイナリコードが含まれているので再配布などは行っていない．<a class="reference external" href="https://github.com/kIshizaki-sci/philab_root">GitHub上のレポジトリ</a>のコード自体はMITライセンスで配布しているので，MITライセンスのもとで自由に使ってほしい．</p>
+<div class="section" id="id1">
+<h3>このイメージのセットアップ<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>このDockerイメージはDebian系のLinux OSである<strong>Ubuntu 21.04</strong>をベースにPython, JupyterLab, CERN ROOT, その他Pythonパッケージをrootユーザでインストールしてある．このDockerイメージを元にコンテナを立ち上げる際の設定は<code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code>のなかに記されている．デフォルトではユーザは<code class="docutils literal notranslate"><span class="pre">philab_member</span></code>になっているが，<code class="docutils literal notranslate"><span class="pre">root</span></code>に書き換えることでrootユーザでコンテナを操作することも出来る．philab_memberはsudoのメンバーなのでコンテナの中ではsudoを使うことで管理者権限でpythonパッケージの導入などが可能．
+Unix初心者のために管理者権限で操作できいる範囲と一般ユーザで操作できる範囲を区別してもらうために敢えてこのような設計にした．philab_memberの<strong>パスワードは”plainpassword”</strong>．文字通りこのパスワードは平文でしかも公開しているためセキュリティリスクを伴う使用は絶対にしないでください．</p>
+<p>使用言語は日本語に設定しており，またx86処理系ではUbuntuのアップデートやセキュリティリスクの小さなパッケージのダウンロードは理研のミラーサーバを使うように設定している．そのためイメージのビルドはコンピュータのCPUによって所要時間が大きく変わってくる．</p>
+<p>このイメージではJupyterLabはデフォルトで<code class="docutils literal notranslate"><span class="pre">/home/philab_member/working</span></code>以下のディレクトリでコードやMarkdownを書いたりするように設定している．workingディレクトリ上で生成されたデータやコードはホストマシンともシンクロしており，コンテナ上で保存していればコンテナをシャットダウンした後でもファイルは残り続ける．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="n">pwd</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/philab_member/working/book
+</pre></div>
+</div>
+</div>
+</div>
+<p>またホームディレクトリにはworkingディレクトリの他に2つのディレクトリが存在する．これらはホストマシン上の同名ディレクトリと中身がシンクロしている．</p>
+<ul class="simple">
+<li><p><strong>input</strong> : コンテナ上からファイルの読み込みが可能だが書き込みは不可能なディレクトリ．書き換えたり削除してしまうとまずい実験データをホストマシン上で入れておく．</p></li>
+<li><p><strong>output</strong> : 解析結果などを出力するためのディレクトリ．コンテナから読み込みと書き込みが可能．
+working, input, outputの3つのディレクトリはそれぞれホストマシンとシンクロしているのでコンテナをシャットダウンしてもホストマシン上に残り続けるが<strong>それ以外のディレクトリで保存されたファイルはコンテナをシャットダウンすると消失する</strong>．</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>JupyterLabの操作<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>セルの実行：<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">(or</span> <span class="pre">Command)</span> <span class="pre">+</span> <span class="pre">Enter</span></code>でセルを実行する．</p></li>
+<li><p>保存：<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">(or</span> <span class="pre">Command)</span> <span class="pre">+</span> <span class="pre">Enter</span></code>でノートブックを保存．</p></li>
+<li><p>セルの削除：セルを右クリックし<code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">Cells</span></code></p></li>
+<li><p>新しいノートブックの作成：JupyterLabの左上にある+ボタンをクリック．</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>練習<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>実際に2つのコードを動かしてみましょう．</p>
+<div class="section" id="id4">
+<h3>素数の計算<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>以下のコードは<span class="math notranslate nohighlight">\(N (&lt;1,000,000)\)</span>以下の素数を全て求めて”prime_numbers.txt”に保存し,<span class="math notranslate nohighlight">\(N\)</span>以下の素数の個数を返します．</p>
+<p>セルを指定した状態で<code class="docutils literal notranslate"><span class="pre">Ctrl+Enter</span></code>を押すとJust In Timeで関数が機械語にコンパイルされて，以降関数を使用できるようになります．では以下の2つのセルを実行しましょう．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">show_prime_numbers</span><span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">prime_numbers</span><span class="p">[</span><span class="mi">1&#39;000&#39;000</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">prime_numbers_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">N</span><span class="o">&gt;</span><span class="mi">1&#39;000&#39;000</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;N must be 1 &lt; N &lt; 1,000,000. The input value is&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span> <span class="o">&lt;&lt;</span><span class="s">&quot;.&quot;</span> <span class="o">&lt;&lt;</span>  <span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">prime_numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">prime_numbers_num</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span> <span class="n">n</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">k</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="o">==</span><span class="n">n</span><span class="mi">-1</span><span class="p">){</span>
+                <span class="n">prime_numbers</span><span class="p">[</span><span class="n">prime_numbers_num</span><span class="p">]</span><span class="o">=</span><span class="n">n</span><span class="p">;</span>
+                <span class="n">prime_numbers_num</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">ofstream</span> <span class="n">f</span><span class="p">;</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;prime_numbers.txt&quot;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">prime_numbers_num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="n">prime_numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="n">prime_numbers_num</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(int) 25
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 0.2009260654449463 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<p>上のセルの<code class="docutils literal notranslate"><span class="pre">%%time</span></code>はJupyter notebookのマジックとよばれるものの１つで，セルの実行にかかった時間を返します．<span class="math notranslate nohighlight">\(N=500, 1000, 5000, 20000, 100000, 200000, 500000\)</span>でも実行してみましょう．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(int) 95
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 0.2425539493560791 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(int) 168
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 0.20089387893676758 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(int) 669
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 0.2050025463104248 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(int) 2262
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 0.597135066986084 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(int) 9592
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 3.0616469383239746 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">200000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(int) 17984
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 8.614929437637329 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">show_prime_numbers</span><span class="p">(</span><span class="mi">500000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>では次にここで計算した素数の個数と<span class="math notranslate nohighlight">\(N\)</span>の関係をROOTを使用してグラフにしましょう．</p>
+</div>
+<div class="section" id="root">
+<h3>ROOTを使ったグラフ描画<a class="headerlink" href="#root" title="Permalink to this headline">¶</a></h3>
+<p>ここではROOTを使って簡単なグラフを作成します．詳しいことは後の章で話しますがROOTでのグラフ描画の雰囲気を感じてみてください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">TCanvas</span><span class="o">*</span> <span class="n">c0</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TCanvas</span><span class="p">(</span><span class="s">&quot;canvas0&quot;</span><span class="p">,</span> <span class="s">&quot;Prime number calculation time&quot;</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
+<span class="kt">double</span> <span class="n">N</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">500000</span><span class="p">};</span>
+<span class="kt">double</span> <span class="n">t</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.58</span><span class="p">,</span> <span class="mf">3.10</span><span class="p">,</span> <span class="mf">8.68</span><span class="p">,</span> <span class="mf">41.21</span><span class="p">};</span>
+<span class="n">TGraph</span><span class="o">*</span> <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TGraph</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+<span class="n">graph</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">(</span><span class="s">&quot;AC*&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">c0</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../../../../_images/【1】JupyterLabとROOTの使い方_28_0.png" src="../../../../../../../../_images/【1】JupyterLabとROOTの使い方_28_0.png" />
+</div>
+</div>
+<p>magic command <code class="docutils literal notranslate"><span class="pre">%jsroot</span></code>を使うことでグラフの拡大などインタラクティブに操作できるグラフが描画されるようになります．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">jsroot</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">c0</span><span class="o">-&gt;</span><span class="n">Draw</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+
+<div id="root_plot_1633289588926"
+     style="width: 596px; height: 372px">
+</div>
+<script>
+
+function display_root_plot_1633289588926(Core) {
+   let obj = Core.parse({"_typename":"TCanvas","fUniqueID":0,"fBits":3342344,"fLineColor":1,"fLineStyle":1,"fLineWidth":1,"fFillColor":0,"fFillStyle":1001,"fLeftMargin":0.1,"fRightMargin":0.1,"fBottomMargin":0.1,"fTopMargin":0.1,"fXfile":2,"fYfile":2,"fAfile":1,"fXstat":0.99,"fYstat":0.99,"fAstat":2,"fFrameFillColor":0,"fFrameLineColor":1,"fFrameFillStyle":1001,"fFrameLineStyle":1,"fFrameLineWidth":1,"fFrameBorderSize":1,"fFrameBorderMode":0,"fX1":-68748.7551221813,"fY1":-5.46137542031522,"fX2":618738.755122181,"fY2":50.9523754203152,"fXtoAbsPixelk":59.600053552437,"fXtoPixelk":59.600053552437,"fXtoPixel":8.66924840260961e-4,"fYtoAbsPixelk":335.986992437197,"fYtoPixelk":335.986992437197,"fYtoPixel":-6.59413696938721,"fUtoAbsPixelk":5e-5,"fUtoPixelk":5e-5,"fUtoPixel":596,"fVtoAbsPixelk":372.00005,"fVtoPixelk":372,"fVtoPixel":-372,"fAbsPixeltoXk":-68748.7551221813,"fPixeltoXk":-68748.7551221813,"fPixeltoX":1153.50253396705,"fAbsPixeltoYk":50.9523754203152,"fPixeltoYk":-5.46137542031522,"fPixeltoY":-0.151649867851157,"fXlowNDC":0,"fYlowNDC":0,"fXUpNDC":1,"fYUpNDC":1,"fWNDC":1,"fHNDC":1,"fAbsXlowNDC":0,"fAbsYlowNDC":0,"fAbsWNDC":1,"fAbsHNDC":1,"fUxmin":0,"fUymin":0.18,"fUxmax":549990,"fUymax":45.311,"fTheta":30,"fPhi":30,"fAspectRatio":0,"fNumber":0,"fTickx":0,"fTicky":0,"fLogx":0,"fLogy":0,"fLogz":0,"fPadPaint":0,"fCrosshair":0,"fCrosshairPos":0,"fBorderSize":2,"fBorderMode":0,"fModified":false,"fGridx":false,"fGridy":false,"fAbsCoord":false,"fEditable":true,"fFixedAspectRatio":false,"fPrimitives":{"_typename":"TList","name":"TList","arr":[{"_typename":"TFrame","fUniqueID":0,"fBits":8,"fLineColor":1,"fLineStyle":1,"fLineWidth":1,"fFillColor":0,"fFillStyle":1001,"fX1":0,"fY1":0.18,"fX2":549990,"fY2":45.311,"fBorderSize":1,"fBorderMode":0},{"_typename":"TGraph","fUniqueID":0,"fBits":1032,"fName":"Graph","fTitle":"Graph","fLineColor":1,"fLineStyle":1,"fLineWidth":1,"fFillColor":0,"fFillStyle":1000,"fMarkerColor":1,"fMarkerStyle":3,"fMarkerSize":1,"fNpoints":8,"fX":[100,500,1000,5000,20000,100000,200000,500000],"fY":[0.2,0.2,0.2,0.26,0.58,3.1,8.68,41.21],"fFunctions":{"_typename":"TList","name":"TList","arr":[],"opt":[]},"fHistogram":{"_typename":"TH1F","fUniqueID":0,"fBits":512,"fName":"Graph","fTitle":"Graph","fLineColor":602,"fLineStyle":1,"fLineWidth":1,"fFillColor":0,"fFillStyle":1001,"fMarkerColor":1,"fMarkerStyle":1,"fMarkerSize":1,"fNcells":102,"fXaxis":{"_typename":"TAxis","fUniqueID":0,"fBits":0,"fName":"xaxis","fTitle":"","fNdivisions":510,"fAxisColor":1,"fLabelColor":1,"fLabelFont":42,"fLabelOffset":0.005,"fLabelSize":0.035,"fTickLength":0.03,"fTitleOffset":1,"fTitleSize":0.035,"fTitleColor":1,"fTitleFont":42,"fNbins":100,"fXmin":0,"fXmax":549990,"fXbins":[],"fFirst":0,"fLast":0,"fBits2":0,"fTimeDisplay":false,"fTimeFormat":"","fLabels":null,"fModLabs":null},"fYaxis":{"_typename":"TAxis","fUniqueID":0,"fBits":0,"fName":"yaxis","fTitle":"","fNdivisions":510,"fAxisColor":1,"fLabelColor":1,"fLabelFont":42,"fLabelOffset":0.005,"fLabelSize":0.035,"fTickLength":0.03,"fTitleOffset":0,"fTitleSize":0.035,"fTitleColor":1,"fTitleFont":42,"fNbins":1,"fXmin":0.18,"fXmax":45.311,"fXbins":[],"fFirst":0,"fLast":0,"fBits2":0,"fTimeDisplay":false,"fTimeFormat":"","fLabels":null,"fModLabs":null},"fZaxis":{"_typename":"TAxis","fUniqueID":0,"fBits":0,"fName":"zaxis","fTitle":"","fNdivisions":510,"fAxisColor":1,"fLabelColor":1,"fLabelFont":42,"fLabelOffset":0.005,"fLabelSize":0.035,"fTickLength":0.03,"fTitleOffset":1,"fTitleSize":0.035,"fTitleColor":1,"fTitleFont":42,"fNbins":1,"fXmin":0,"fXmax":1,"fXbins":[],"fFirst":0,"fLast":0,"fBits2":0,"fTimeDisplay":false,"fTimeFormat":"","fLabels":null,"fModLabs":null},"fBarOffset":0,"fBarWidth":1000,"fEntries":0,"fTsumw":0,"fTsumw2":0,"fTsumwx":0,"fTsumwx2":0,"fMaximum":45.311,"fMinimum":0.18,"fNormFactor":0,"fContour":[],"fSumw2":[],"fOption":"","fFunctions":{"_typename":"TList","name":"TList","arr":[],"opt":[]},"fBufferSize":0,"fBuffer":[],"fBinStatErrOpt":0,"fStatOverflows":2,"fArray":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"fMinimum":-1111,"fMaximum":-1111},{"_typename":"TPaveText","fUniqueID":0,"fBits":9,"fLineColor":1,"fLineStyle":1,"fLineWidth":1,"fFillColor":0,"fFillStyle":0,"fX1":236398.805213463,"fY1":47.030710106686,"fX2":313591.194786538,"fY2":50.6703069351138,"fX1NDC":0.443859060402685,"fY1NDC":0.930483875736113,"fX2NDC":0.556140939597315,"fY2NDC":0.995000004768372,"fBorderSize":0,"fInit":1,"fShadowColor":1,"fCornerRadius":0,"fOption":"blNDC","fName":"title","fTextAngle":0,"fTextSize":0,"fTextAlign":22,"fTextColor":1,"fTextFont":42,"fLabel":"","fLongest":5,"fMargin":0.05,"fLines":{"_typename":"TList","name":"TList","arr":[{"_typename":"TLatex","fUniqueID":0,"fBits":0,"fName":"","fTitle":"Graph","fTextAngle":0,"fTextSize":0,"fTextAlign":0,"fTextColor":0,"fTextFont":0,"fX":0,"fY":0,"fLineColor":1,"fLineStyle":1,"fLineWidth":2,"fLimitFactorSize":3,"fOriginSize":0.0548387095332146}],"opt":[""]}},{"_typename":"TStyle","fUniqueID":0,"fBits":0,"fName":"Modern","fTitle":"Modern Style","fLineColor":1,"fLineStyle":1,"fLineWidth":1,"fFillColor":19,"fFillStyle":1001,"fMarkerColor":1,"fMarkerStyle":1,"fMarkerSize":1,"fTextAngle":0,"fTextSize":0.05,"fTextAlign":11,"fTextColor":1,"fTextFont":62,"fXaxis":{"_typename":"TAttAxis","fNdivisions":510,"fAxisColor":1,"fLabelColor":1,"fLabelFont":42,"fLabelOffset":0.005,"fLabelSize":0.035,"fTickLength":0.03,"fTitleOffset":1,"fTitleSize":0.035,"fTitleColor":1,"fTitleFont":42},"fYaxis":{"_typename":"TAttAxis","fNdivisions":510,"fAxisColor":1,"fLabelColor":1,"fLabelFont":42,"fLabelOffset":0.005,"fLabelSize":0.035,"fTickLength":0.03,"fTitleOffset":0,"fTitleSize":0.035,"fTitleColor":1,"fTitleFont":42},"fZaxis":{"_typename":"TAttAxis","fNdivisions":510,"fAxisColor":1,"fLabelColor":1,"fLabelFont":42,"fLabelOffset":0.005,"fLabelSize":0.035,"fTickLength":0.03,"fTitleOffset":1,"fTitleSize":0.035,"fTitleColor":1,"fTitleFont":42},"fBarWidth":1,"fBarOffset":0,"fColorModelPS":0,"fDrawBorder":0,"fOptLogx":0,"fOptLogy":0,"fOptLogz":0,"fOptDate":0,"fOptStat":1111,"fOptTitle":1,"fOptFile":0,"fOptFit":0,"fShowEventStatus":0,"fShowEditor":0,"fShowToolBar":0,"fNumberContours":20,"fAttDate":{"_typename":"TAttText","fTextAngle":0,"fTextSize":0.025,"fTextAlign":11,"fTextColor":1,"fTextFont":62},"fDateX":0.01,"fDateY":0.01,"fEndErrorSize":2,"fErrorX":0.5,"fFuncColor":2,"fFuncStyle":1,"fFuncWidth":2,"fGridColor":0,"fGridStyle":3,"fGridWidth":1,"fLegendBorderSize":1,"fLegendFillColor":0,"fLegendFont":42,"fLegendTextSize":0,"fHatchesLineWidth":1,"fHatchesSpacing":1,"fFrameFillColor":0,"fFrameLineColor":1,"fFrameFillStyle":1001,"fFrameLineStyle":1,"fFrameLineWidth":1,"fFrameBorderSize":1,"fFrameBorderMode":0,"fHistFillColor":0,"fHistLineColor":602,"fHistFillStyle":1001,"fHistLineStyle":1,"fHistLineWidth":1,"fHistMinimumZero":false,"fHistTopMargin":0.05,"fCanvasPreferGL":false,"fCanvasColor":0,"fCanvasBorderSize":2,"fCanvasBorderMode":0,"fCanvasDefH":500,"fCanvasDefW":700,"fCanvasDefX":10,"fCanvasDefY":10,"fPadColor":0,"fPadBorderSize":2,"fPadBorderMode":0,"fPadBottomMargin":0.1,"fPadTopMargin":0.1,"fPadLeftMargin":0.1,"fPadRightMargin":0.1,"fPadGridX":false,"fPadGridY":false,"fPadTickX":0,"fPadTickY":0,"fPaperSizeX":20,"fPaperSizeY":26,"fScreenFactor":1,"fStatColor":0,"fStatTextColor":1,"fStatBorderSize":1,"fStatFont":42,"fStatFontSize":0,"fStatStyle":1001,"fStatFormat":"6.4g","fStatX":0.98,"fStatY":0.935,"fStatW":0.2,"fStatH":0.16,"fStripDecimals":true,"fTitleAlign":23,"fTitleColor":0,"fTitleTextColor":1,"fTitleBorderSize":0,"fTitleFont":42,"fTitleFontSize":0.05,"fTitleStyle":0,"fTitleX":0.5,"fTitleY":0.995,"fTitleW":0,"fTitleH":0,"fLegoInnerR":0.5,"fLineStyle":["","  "," 12 12"," 4 8"," 12 16 4 16"," 20 12 4 12"," 20 12 4 12 4 12 4 12"," 20 20"," 20 12 4 12 4 12"," 80 20"," 80 40 4 40","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  "],"fHeaderPS":"","fTitlePS":"","fFitFormat":"5.4g","fPaintTextFormat":"g","fLineScalePS":3,"fJoinLinePS":0,"fCapLinePS":0,"fTimeOffset":788918400,"fImageScaling":1}],"opt":["","acp","blNDC",""]},"fExecs":null,"fName":"canvas0","fTitle":"Prime number calculation time","fNumPaletteColor":0,"fNextPaletteColor":0,"fDISPLAY":"$DISPLAY","fDoubleBuffer":0,"fRetained":true,"fXsizeUser":0,"fYsizeUser":0,"fXsizeReal":20,"fYsizeReal":13.33333,"fWindowTopX":0,"fWindowTopY":0,"fWindowWidth":0,"fWindowHeight":0,"fCw":596,"fCh":372,"fCatt":{"_typename":"TAttCanvas","fXBetween":2,"fYBetween":2,"fTitleFromTop":1.2,"fXdate":0.2,"fYdate":0.3,"fAdate":1},"kMoveOpaque":true,"kResizeOpaque":true,"fHighLightColor":2,"fBatch":true,"kShowEventStatus":false,"kAutoExec":true,"kMenuBar":true});
+   Core.settings.HandleKeys = false;
+   Core.draw("root_plot_1633289588926", obj, "");
+}
+
+function script_load_root_plot_1633289588926(src, on_error) {
+    let script = document.createElement('script');
+    script.src = src;
+    script.onload = function() { display_root_plot_1633289588926(JSROOT); };
+    script.onerror = function() { script.remove(); on_error(); };
+    document.head.appendChild(script);
+}
+
+if (typeof requirejs !== 'undefined') {
+
+    // We are in jupyter notebooks, use require.js which should be configured already
+    requirejs.config({
+       paths: { 'JSRootCore' : [ 'scripts/JSRoot.core', 'https://root.cern/js/6.1.1/scripts/JSRoot.core.min', 'https://jsroot.gsi.de/6.1.1/scripts/JSRoot.core.min' ] }
+    })(['JSRootCore'],  function(Core) {
+       display_root_plot_1633289588926(Core);
+    });
+
+} else if (typeof JSROOT !== 'undefined') {
+
+   // JSROOT already loaded, just use it
+   display_root_plot_1633289588926(JSROOT);
+
+} else {
+
+    // We are in jupyterlab without require.js, directly loading jsroot
+    // Jupyterlab might be installed in a different base_url so we need to know it.
+    try {
+        var base_url = JSON.parse(document.getElementById('jupyter-config-data').innerHTML).baseUrl;
+    } catch(_) {
+        var base_url = '/';
+    }
+
+    // Try loading a local version of requirejs and fallback to cdn if not possible.
+    script_load_root_plot_1633289588926(base_url + 'static/scripts/JSRoot.core.js', function(){
+        console.error('Fail to load JSROOT locally, please check your jupyter_notebook_config.py file');
+        script_load_root_plot_1633289588926('https://root.cern/js/6.1.1/scripts/JSRoot.core.min.js', function(){
+            document.getElementById("root_plot_1633289588926").innerHTML = "Failed to load JSROOT";
+        });
+    });
+}
+
+</script>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>練習課題<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>この章で使った素数計算のコードを少し改変することで<span class="math notranslate nohighlight">\(N\gtrsim 200,000\)</span>ならば計算に要する時間を半分程度まで減らすことが出来ます．計算時間を減らす方法を考えて実装してみてください．</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "root"
+        },
+        kernelOptions: {
+            kernelName: "root",
+            path: "./contents/book/_build/jupyter_execute/contents/book/_build/jupyter_execute"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'root'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Kohei ISHIZAKI<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../../../../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
